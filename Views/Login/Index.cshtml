@@ -1,0 +1,55 @@
+﻿@model MyGroups.Models.LogonError
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared.cshtml";
+}
+
+
+<!-- Login -->
+<h2>Login</h2>
+
+<div data-role="page" id="pgLogin">
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h3>
+            My Groups Mobile
+        </h3>
+    </div>
+    @using (Html.BeginForm("Authenticate", "Login", FormMethod.Post, new { data_ajax = "false" }))
+    {
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup" data-mini="true">
+                <label for="txtUserName">
+                    User Name:
+                </label>
+                <input name="UserName" id="txtUserName" placeholder="" value="" type="text">
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup" data-mini="true">
+                <label for="txtPassword">
+                    Password
+                </label>
+                <input name="Password" id="txtPassword" placeholder="" value="" type="password">
+            </fieldset>
+        </div>
+        <input type="submit" value="Login">
+        <center>
+            @Model.ErrorMessage
+        </center>
+    </div>
+    }
+
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3>
+            Copyright &copy; 2013 Think Ministry, Inc
+        </h3>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtUserName").focus();
+    });
+</script>

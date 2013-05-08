@@ -1,0 +1,12 @@
+﻿@model List<MyGroups.Models.Group>
+
+@{
+    foreach(var group in Model)
+    {
+        <li data-theme="c" data-GroupId="@group.Id" data-GroupName="@group.Name" data-GroupCongregationId="@group.CongregationId">
+            <a href="#pgGroupMembers" data-transition="slide">
+                @group.Name
+            </a>
+        </li>
+    }
+}

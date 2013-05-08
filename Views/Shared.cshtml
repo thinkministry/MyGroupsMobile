@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>My Groups Mobile</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+    <style type="text/css">
+        .hidden {
+            display: none;
+        }
+        #divImage {
+            border: solid 1px #666666; 
+            height: 150px; 
+            width: 150px; 
+            background-color: #DDDDDD; 
+            background-size: cover; 
+            text-align: center; 
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    @RenderBody()
+</body>
+
+<script type="text/javascript">
+    var _currentGroupId;
+    var _currentMemberId;
+
+    jQuery.ajaxSettings.traditional = true;
+
+    $(document).ready(function () {
+        $("#lstGroups").on("click", "li", function () {
+            //var groupId = $(this).attr("data-GroupId");
+            var groupId = $(this).attr("data-GroupId");
+            _currentGroupId = groupId;
+            var groupName = $(this).attr("data-GroupName");
+            var groupCongregationId = $(this).attr("data-GroupCongregationId");
+            //debugger;
+            $("#hdrGroupMembers").text(groupName);
+            $("#NewMeetingGroupId").val(groupId);
+            $("#NewMeetingCongregationId").val(groupCongregationId);
+
+            $("#lstGroupMembers").empty();
+            $("#pgGroupMembersSelect").empty();
+            $("#ddlMeetings").empty();
+
+            $.post("Groups/GetMembersAndMeetings", { GroupId: groupId }, function (data) {
+
+                $.each(data.Members, function (i, groupMember) {
+                    $("<li/>").data("Member", groupMember).append("<a href=\"#pgMember\" data-transition=\"slide\"><h3>" + groupMember.DisplayName + "</h3><p>" + groupMember.RoleTitle + "</p></a>").appendTo("#lstGroupMembers");
+                });
+
+                $("<option/>").attr("value", 0).append("Choose Meeting Time").appendTo("#ddlMeetings");
+                $.each(data.Meetings, function (j, groupMeeting) {
+                    $("<option/>").attr("value", groupMeeting.Id).append(groupMeeting.DisplayName).appendTo("#ddlMeetings");
+                });
+
+                $("#lstGroupMembers").listview("refresh");
+                $("#pgGroupMembersSelect").trigger("create");
+                $("#ddlMeetings").selectmenu("refresh");
+
+            });
+
+            $("#pgGroupMembersList").removeClass("hidden");
+            $("#pgGroupMembersSelect").addClass("hidden");
+
+            $("#navAttendance").addClass("hidden");
+            document.getElementById("btnCheckIn").style.display = "none";
+
+        });
+
+        $("#lstGroupMembers").on("click", "li", function () {
+            var selectedMember = $(this).data("Member");
+            _currentMemberId = selectedMember.ContactId;
+            $("#NewNoteContactId").val(selectedMember.ContactId);
+
+            $("#hdrMember").text(selectedMember.DisplayName);
+            
+
+            $("#spnDisplayName").html("<h4>" + selectedMember.DisplayName + "</h4>");
+            $("#spnRoleTitle").text(selectedMember.RoleTitle);
+            $("#divImage").css("background-image", "url('" + selectedMember.ImagePath + "?dn=" + selectedMember.DomainGuid + "&fn=" + selectedMember.FileName + "')");
+
+
+            $("#lnkEmailAddress").attr("href", "mailto:" + selectedMember.EmailAddress).attr("data-role", "button").text(selectedMember.EmailAddress);
+
+            $("#lnkMobilePhone").attr("href", "tel:" + selectedMember.MobilePhone).attr("data-role", "button").text(selectedMember.MobilePhone);
+            $("#lnkHomePhone").attr("href", "tel:" + selectedMember.HomePhone).attr("data-role", "button").text(selectedMember.HomePhone);
+
+            $("#lnkAddress").attr("href", (selectedMember.AddressLine1 != "" ? ("http://maps.google.com/maps?q=" + selectedMember.AddressLine1 + " " + selectedMember.AddressLine2 + "+" + selectedMember.City + ",+" + selectedMember.State + "+" + selectedMember.ZipCode) : "")).attr("data-role", "button").html(selectedMember.AddressLine1 + " " + selectedMember.AddressLine2 + "<br/>" + selectedMember.City + ", " + selectedMember.State + " " + selectedMember.ZipCode);
+
+            //debugger;
+            $("#pgMemberInfo").trigger("create");
+
+            $("#pgMemberInfo").removeClass("hidden");
+            $("#pgMemberNotes").addClass("hidden");
+        });
+
+
+        $("#ddlMeetings").on("change", function () {
+            if ($(this).val() == 0) {
+                $("#pgGroupMembersSelect").empty();
+            }
+            else {
+                $.post("Groups/GetMeetingAttendees", {
+                    EventId: $(this).val(),
+                    GroupId: _currentGroupId
+                },
+                function (attendees) {
+                    $("#pgGroupMembersSelect").empty();
+                    $.each(attendees, function (i, groupMember) {
+                        $("<label/>").append("<input type=\"checkbox\"" + (groupMember.IsMeetingAttendee ? " disabled=\"disabled\"" : "") + " value=\"" + groupMember.ParticipantId + "\" data-GroupParticipantId=\"" + groupMember.GroupParticipantId + "\" />" + groupMember.DisplayName).appendTo("#pgGroupMembersSelect");
+                    });
+
+                    $("#pgGroupMembersSelect").trigger("create");
+                });
+            }
+        });
+
+        $("#lstMemberNotes").on("click", "li", function () {
+
+            $("#NewNoteNoteId").val($(this).data("NoteId"));
+            $("#NewNoteLocalTime").val(getLocalDate());
+            $("#NewNoteNoteText").val($(this).text());
+        });
+
+
+        $("#btnConfirmCheckIn").on("click", function () {
+            var participantIds = [];
+            var groupParticipantIds = [];
+
+            $("#pgGroupMembersSelect input:checked").each(function () {
+                participantIds.push($(this).val());
+                groupParticipantIds.push($(this).attr("data-GroupParticipantId"));
+            });
+
+            var meetingId = $("#ddlMeetings").val();
+            //debugger;
+            $.post("Form/CheckInMember", {
+                EventId: meetingId,
+                ParticipantIds: participantIds,
+                GroupParticipantIds: groupParticipantIds,
+                LocalTime: getLocalDate()
+            },
+            function (checkInResult) {
+                //debugger;
+                if (checkInResult.success == true) {
+                    $("#pgGroupMembersSelect input:checked").each(function () {
+                        $(this).checkboxradio("disable");
+                        $(this).checkboxradio("refresh");
+                    });
+                }
+                $("#popCheckIn").popup("close");
+            });
+
+        });
+
+        $("#btnNewNote").on("click", function () {
+            $("#NewNoteNoteId").val(0);
+            $("#NewNoteLocalTime").val(getLocalDate());
+            $("#NewNoteNoteText").val("")
+        });
+
+        $("#btnCreateNote").on("click", function () {
+            $.post("Form/CreateUpdateNote",
+                {
+                    ContactId: $("#NewNoteContactId").val(),
+                    NoteId: $("#NewNoteNoteId").val(),
+                    LocalTime: $("#NewNoteLocalTime").val(),
+                    NoteText: $("#NewNoteNoteText").val()
+                },
+                function (updatedNote) {
+                    //debugger;
+                    if ($("#NewNoteNoteId").val() == 0) {
+                        $("<li/>").data("NoteId", updatedNote.Id).append("<a href=\"#popAddEditNote\" data-NoteId=\"" + updatedNote.Id + "\" data-rel=\"popup\">" + updatedNote.Notes + "</a>").appendTo("#lstMemberNotes");
+                    }
+                    else {
+                        var targetA = $("#lstMemberNotes a[data-NoteId='" + updatedNote.Id + "']");
+                        //debugger;
+                        targetA.text(updatedNote.Notes);
+                    }
+                    $("#lstMemberNotes").listview("refresh");
+                    $("#popAddEditNote").popup("close");
+                });
+
+        });
+
+
+        $("#btnCreateMeeting").on("click", function () {
+            $.post("Form/CreateMeeting",
+                {
+                    GroupId: $("#NewMeetingGroupId").val(),
+                    CongregationId: $("#NewMeetingCongregationId").val(),
+                    NewMeetingDate: $("#NewMeetingDate").val(),
+                    NewMeetingHour: $("#NewMeetingHour").val(),
+                    NewMeetingMinute: $("#NewMeetingMinute").val(),
+                    NewMeetingAMPM: $("#NewMeetingAMPM").val(),
+                    NewMeetingDuration: $("#NewMeetingDuration").val()
+
+                },
+                function (newMeeting) {
+                    $("<option/>").attr("value", newMeeting.Id).attr("selected", "selected").append(newMeeting.DisplayName).appendTo("#ddlMeetings");
+                    $("#ddlMeetings").selectmenu("refresh");
+                    $("#popNewMeeting").popup("close");
+                });
+        });
+
+    });
+
+    function toggleMembersList(targetPage) {
+        if (targetPage == "pgGroupMembersList" && $("#pgGroupMembersList").hasClass("hidden")) {
+            $("#pgGroupMembersList").removeClass("hidden");
+            $("#pgGroupMembersSelect").addClass("hidden");
+
+            $("#navAttendance").addClass("hidden");
+            //$("#btnCheckIn").addClass("hidden");
+            document.getElementById("btnCheckIn").style.display = "none";
+        }
+
+        if (targetPage == "pgGroupMembersSelect" && $("#pgGroupMembersSelect").hasClass("hidden")) {
+            $("#pgGroupMembersSelect").removeClass("hidden");
+            $("#pgGroupMembersList").addClass("hidden");
+
+            $("#navAttendance").removeClass("hidden");
+            //$("#btnCheckIn").removeClass("hidden");
+            document.getElementById("btnCheckIn").style.display = "";
+        }
+
+
+        //$("hdrMemberList")
+        $("#hdrMemberList").trigger('create');
+        //$("#btnCheckIn").button("refresh");
+    }
+
+    function toggleMemberInfo(targetPage) {
+        if (targetPage == "pgMemberInfo" && $("#pgMemberInfo").hasClass("hidden")) {
+            $("#pgMemberInfo").removeClass("hidden");
+            $("#pgMemberNotes").addClass("hidden");
+        }
+
+        if (targetPage == "pgMemberNotes" && $("#pgMemberNotes").hasClass("hidden")) {
+
+            $("#lstMemberNotes").empty();
+            $.post("Groups/GetMemberNotes", { ContactId: _currentMemberId }, function (data) {
+                $.each(data, function (i, note) {
+                    $("<li/>").data("NoteId", note.Id).append("<a href=\"#popAddEditNote\" data-NoteId=\"" + note.Id + "\" data-rel=\"popup\">" + note.Notes + "</a>").appendTo("#lstMemberNotes");
+                });
+
+                $("#lstMemberNotes").listview("refresh");
+            });
+
+
+            $("#pgMemberNotes").removeClass("hidden");
+            $("#pgMemberInfo").addClass("hidden");
+        }
+
+
+    }
+
+    function getLocalDate() {
+        var now = new Date();
+        var shortDate = (now.getMonth() + 1) + "-" + now.getDate() + "-" + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+        return shortDate;
+    }
+    
+</script>
+
+
+</html>

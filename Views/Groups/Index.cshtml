@@ -1,0 +1,244 @@
+﻿@model MyGroups.Models.Main
+
+
+@{
+   
+    ViewBag.Title = "My Groups";
+    Layout = "~/Views/Shared.cshtml";
+}
+
+<!-- Groups List Page -->
+<div data-role="page" id="pgMyGroups">
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h3>
+            My Groups
+        </h3>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" data-divider-theme="c" data-inset="false" id="lstGroups">
+            @Html.Partial("_List", Model.Groups)
+        </ul>
+    </div>
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3>
+            Logged in as @Model.CurrentUser.DisplayName
+        </h3>
+    </div>
+</div>
+
+<!-- Group Members List Page -->
+<div data-role="page" id="pgGroupMembers" data-add-back-btn="true">
+    <div data-theme="b" data-role="header" data-position="fixed" id="hdrMemberList">
+        <h3 id="hdrGroupMembers">
+            Group Name Here
+        </h3>
+        <a href="#popCheckIn" id="btnCheckIn" data-rel="popup" data-role="button" data-position-to="window" class="ui-btn-right">Checkin</a>
+
+        <div id="navAttendance">
+            <center>
+                <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+                    <select id="ddlMeetings"></select>
+                    <a href="#popNewMeeting" id="btnNewMeeting" data-rel="popup" data-role="button" data-position-to="window">New</a>
+                
+                </div>
+            </center>
+        </div>
+    </div>
+    <div data-role="content">
+        <!-- Search Group Members List Page -->
+        <div id="pgGroupMembersList">
+            <ul data-role="listview" data-inset="false" id="lstGroupMembers" data-filter="true">
+                List content goes here
+            </ul>
+        </div>
+        <!-- Select Group Members List Page -->
+        <div data-role="controlgroup" id="pgGroupMembersSelect">
+            <label><input type="checkbox" />Person One</label>
+            <label><input type="checkbox" />Person Two</label>
+            <label><input type="checkbox" />Person Three</label>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+    	<div data-role="navbar">
+		    <ul>
+			    <li><a href="#" onclick="toggleMembersList('pgGroupMembersList')" class="ui-state-persist ui-btn-active">Member List</a></li>
+			    <li><a href="#" onclick="toggleMembersList('pgGroupMembersSelect')">Attendance</a></li>
+		    </ul>
+	    </div>
+    </div>
+
+    <!-- Confirm Check-in Popup -->
+    <div data-role="popup" id="popCheckIn" data-theme="e" data-overlay-theme="a">
+        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <h3>Confirm Check-In</h3>
+
+        <div data-role="content">
+            <h4>Are you sure you want to check-in the selected individuals?</h4>
+            <input type="button" value="Check-In" id="btnConfirmCheckIn" />
+            <a href="#" data-rel="back" data-role="button">Cancel</a>
+        </div>
+    </div>
+
+    <!-- New Meeting Popup -->
+    <div data-role="popup" id="popNewMeeting" data-theme="e" data-overlay-theme="a">
+        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <h3>New Group Meeting</h3>
+
+        <div data-role="content">
+
+            <input type="hidden" name="GroupId" id="NewMeetingGroupId" />
+            <input type="hidden" name="CongregationId" id="NewMeetingCongregationId" />
+            <div data-role="controlgroup" data-mini="true">
+                <select id="NewMeetingDate">
+            @{
+                DateTime FirstDate = DateTime.Today.AddDays(-7);
+                for (int d = 0; d < 15; d++)
+                {
+                    <option value="@FirstDate.AddDays(d).ToShortDateString()" @(FirstDate.AddDays(d) == DateTime.Today ? " selected=\"selected\"" : "")>@FirstDate.AddDays(d).ToString("ddd, MMM d, yyyy")@(FirstDate.AddDays(d) == DateTime.Today ? " (today)" : "")</option>
+                }    
+             }
+
+                </select>
+            </div>
+            <div data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <select id="NewMeetingHour">
+                    <option>12</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                </select>
+                <select id="NewMeetingMinute">
+                    <option>00</option>
+                    <option>15</option>
+                    <option>30</option>
+                    <option>45</option>
+                </select>
+                <select id="NewMeetingAMPM">
+                    <option>AM</option>
+                    <option>PM</option>
+                </select>
+            </div>
+            <div data-role="controlgroup" data-mini="true">
+                <select id="NewMeetingDuration">
+                    <option value="15">15 Minutes</option>
+                    <option value="30">30 Minutes</option>
+                    <option value="45">45 Minutes</option>
+                    <option value="60">1 Hour</option>
+                    <option value="90">1.5 Hours</option>
+                    <option value="120">2 Hours</option>
+                </select>
+            </div>
+
+            <input type="button" id="btnCreateMeeting" value="Create" />
+            
+        </div>
+    </div>
+    
+
+
+</div>
+
+
+<!-- Member Info Page -->
+<div data-role="page" id="pgMember" data-add-back-btn="true">
+    <div data-theme="b" data-role="header" data-position="fixed">
+        <h3 id="hdrMember">
+            Person Name Here
+        </h3>
+        <a href="#popAddEditNote" id="btnNewNote" data-rel="popup" data-role="button" data-position-to="window" class="ui-btn-right">Add Note</a>
+
+    </div>
+    <div data-role="content">
+        <!-- Member Info Details Page -->
+        <div id="pgMemberInfo">
+            <table style="width: 100%;" border="0">
+                <tr>
+                    <td>
+                        <span id="spnDisplayName"></span>
+                        <span id="spnRoleTitle"></span>
+                    </td>
+                    <td>
+                        <center><div id="divImage"></div></center>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email:
+                    </td>
+                    <td>
+                        <a id="lnkEmailAddress" target="_blank"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Mobile Phone:
+                    </td>
+                    <td>
+                        <a id="lnkMobilePhone" target="_blank"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Home Phone:
+                    </td>
+                    <td>
+                        <a id="lnkHomePhone" target="_blank"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Home Address:
+                    </td>
+                    <td>
+                        <a id="lnkAddress" target="_blank"></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Member Notes Page -->
+        <div id="pgMemberNotes">
+            <ul data-role="listview" data-inset="false" data-filter="true" id="lstMemberNotes">
+                <li><a href="#popAddEditNote" data-rel="popup">3/15/2013 8:15a - Here's a big 'ol note with a lot of text that I hope will wrap well and display in a way that is readable w/o having to open it</a></li>
+                <li><a href="#popAddEditNote" data-rel="popup">3/15/2013 8:15a - Here's another big 'ol note with a lot of text that I hope will wrap well and display in a way that is readable w/o having to open it</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="footer" data-position="fixed">		
+	    <div data-role="navbar">
+		    <ul>
+			    <li><a href="#" onclick="toggleMemberInfo('pgMemberInfo')" class="ui-state-persist ui-btn-active">Member Info</a></li>
+			    <li><a href="#" onclick="toggleMemberInfo('pgMemberNotes')">My Notes</a></li>
+		    </ul>
+	    </div>
+    </div>
+
+    <!-- Edit Note Popup -->
+    <div data-role="popup" id="popAddEditNote" class="ui-content" data-theme="e" data-overlay-theme="a">
+        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <h3>Add/Edit Note</h3>
+        <div data-role="content">
+
+            <input type="hidden" name="ContactId" id="NewNoteContactId" />
+            <input type="hidden" name="NoteId" id="NewNoteNoteId"/>
+            <input type="hidden" name="LocalTime" id="NewNoteLocalTime" />
+            <textarea style="width: 100%; height: 100px;" name="NoteText" id="NewNoteNoteText">Sample note text</textarea>
+            <input type="button" id="btnCreateNote" value="Save" />
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
