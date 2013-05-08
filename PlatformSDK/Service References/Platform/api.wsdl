@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://thinkministry.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://thinkministry.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://thinkministry.com/">
+      <s:element name="AuthenticateUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ServerName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FirstOutParameter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContactID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DomainID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DomainGUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserGUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DisplayName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExternalURL" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CanImpersonate" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateGUIDS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserGUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DomainGUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateGUIDSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FirstOutParameter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContactID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DomainID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DisplayName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExternalURL" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CanImpersonate" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateContactGUID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ContactGUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DomainGUID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateContactGUIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FirstOutParameter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContactID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DomainID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="DisplayName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CanImpersonate" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDomainGUID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ServerName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDomainGUIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDomainGUIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindOrCreateUserAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobilePhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindOrCreateUserAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindOrCreateUserAccountResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="FirstOutParameter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContactID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedNewContact" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreatedNewUser" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MessageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserAccount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobilePhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MiddleName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NickName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PrefixID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SuffixID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DOB" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="GenderID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="MaritalStatusID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserAccountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserAccountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUserPasswordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResetPasswordResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileContents" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RecordID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileDescription" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IsImage" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="ResizeLongestDimension" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AttachFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AttachFileResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDefaultImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RecordID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="UniqueName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDefaultImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateDefaultImageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryKeyField" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddRecordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecurringRecords">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Pattern" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Frequency" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartBy" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndBy" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndAfter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SpecificDay" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="OrderDay" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SpecificMonth" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sunday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Monday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tuesday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Wednesday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Thursday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Friday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Saturday" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecurringRecordsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecurringRecordsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFirstDateInSeries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Pattern" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Frequency" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartBy" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndBy" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndAfter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SpecificDay" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="OrderDay" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SpecificMonth" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sunday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Monday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tuesday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Wednesday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Thursday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Friday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Saturday" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFirstDateInSeriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFirstDateInSeriesResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecurringRecords">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryKeyField" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestString" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csvSubTabsToCopy" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CopySubTabsFromRecordID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Pattern" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Frequency" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="StartBy" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndBy" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndAfter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SpecificDay" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="OrderDay" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SpecificMonth" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sunday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Monday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tuesday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Wednesday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Thursday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Friday" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Saturday" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRecurringRecordsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddRecurringRecordsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRecord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryKeyField" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRecordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateRecordResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGridData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TabID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ViewID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTerm" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ORSearch" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGridDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGridDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="ResultsCount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderByUsed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ColumnList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryKeyField" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGridDataAdvanced">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TabID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ViewID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTerm" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MonthFilter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="YearFilter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ORSearch" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGridDataAdvancedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGridDataAdvancedResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="ResultsCount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderByUsed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ColumnList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryKeyField" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGridDataFull">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="TabID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SelectionID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ViewID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTerm" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="MonthFilter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="YearFilter" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ORSearch" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGridDataFullResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGridDataFullResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="1" maxOccurs="1" name="ResultsCount" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderByUsed" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ColumnList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PrimaryKeyField" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCommunicationsData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ViewID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SelectionID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchTerm" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCommunicationsDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCommunicationsDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="TabID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="RecordID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFormDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFormDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecuteStoredProcedure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GUID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StoredProcedureName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecuteStoredProcedureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecuteStoredProcedureResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthenticateUserSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateUser" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateUserSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateGUIDSSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateGUIDS" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateGUIDSSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateGUIDSResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateContactGUIDSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateContactGUID" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateContactGUIDSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateContactGUIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDomainGUIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDomainGUID" />
+  </wsdl:message>
+  <wsdl:message name="GetDomainGUIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDomainGUIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindOrCreateUserAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:FindOrCreateUserAccount" />
+  </wsdl:message>
+  <wsdl:message name="FindOrCreateUserAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:FindOrCreateUserAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccount" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserAccountSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ResetPassword" />
+  </wsdl:message>
+  <wsdl:message name="ResetPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileSoapIn">
+    <wsdl:part name="parameters" element="tns:AttachFile" />
+  </wsdl:message>
+  <wsdl:message name="AttachFileSoapOut">
+    <wsdl:part name="parameters" element="tns:AttachFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDefaultImageSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDefaultImage" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDefaultImageSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDefaultImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:AddRecord" />
+  </wsdl:message>
+  <wsdl:message name="AddRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:AddRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecurringRecordsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecurringRecords" />
+  </wsdl:message>
+  <wsdl:message name="GetRecurringRecordsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecurringRecordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFirstDateInSeriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFirstDateInSeries" />
+  </wsdl:message>
+  <wsdl:message name="GetFirstDateInSeriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFirstDateInSeriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddRecurringRecordsSoapIn">
+    <wsdl:part name="parameters" element="tns:AddRecurringRecords" />
+  </wsdl:message>
+  <wsdl:message name="AddRecurringRecordsSoapOut">
+    <wsdl:part name="parameters" element="tns:AddRecurringRecordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecordSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRecord" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecordSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGridDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGridData" />
+  </wsdl:message>
+  <wsdl:message name="GetGridDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGridDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGridDataAdvancedSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGridDataAdvanced" />
+  </wsdl:message>
+  <wsdl:message name="GetGridDataAdvancedSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGridDataAdvancedResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGridDataFullSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGridDataFull" />
+  </wsdl:message>
+  <wsdl:message name="GetGridDataFullSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGridDataFullResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCommunicationsDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCommunicationsData" />
+  </wsdl:message>
+  <wsdl:message name="GetCommunicationsDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCommunicationsDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFormDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFormData" />
+  </wsdl:message>
+  <wsdl:message name="GetFormDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFormDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteStoredProcedureSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecuteStoredProcedure" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteStoredProcedureSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecuteStoredProcedureResponse" />
+  </wsdl:message>
+  <wsdl:portType name="apiSoap">
+    <wsdl:operation name="AuthenticateUser">
+      <wsdl:input message="tns:AuthenticateUserSoapIn" />
+      <wsdl:output message="tns:AuthenticateUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateGUIDS">
+      <wsdl:input message="tns:AuthenticateGUIDSSoapIn" />
+      <wsdl:output message="tns:AuthenticateGUIDSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateContactGUID">
+      <wsdl:input message="tns:AuthenticateContactGUIDSoapIn" />
+      <wsdl:output message="tns:AuthenticateContactGUIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDomainGUID">
+      <wsdl:input message="tns:GetDomainGUIDSoapIn" />
+      <wsdl:output message="tns:GetDomainGUIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <wsdl:input message="tns:GetUserInfoSoapIn" />
+      <wsdl:output message="tns:GetUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindOrCreateUserAccount">
+      <wsdl:input message="tns:FindOrCreateUserAccountSoapIn" />
+      <wsdl:output message="tns:FindOrCreateUserAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccount">
+      <wsdl:input message="tns:UpdateUserAccountSoapIn" />
+      <wsdl:output message="tns:UpdateUserAccountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <wsdl:input message="tns:UpdateUserPasswordSoapIn" />
+      <wsdl:output message="tns:UpdateUserPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <wsdl:input message="tns:ResetPasswordSoapIn" />
+      <wsdl:output message="tns:ResetPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachFile">
+      <wsdl:input message="tns:AttachFileSoapIn" />
+      <wsdl:output message="tns:AttachFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDefaultImage">
+      <wsdl:input message="tns:UpdateDefaultImageSoapIn" />
+      <wsdl:output message="tns:UpdateDefaultImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRecord">
+      <wsdl:input message="tns:AddRecordSoapIn" />
+      <wsdl:output message="tns:AddRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecurringRecords">
+      <wsdl:input message="tns:GetRecurringRecordsSoapIn" />
+      <wsdl:output message="tns:GetRecurringRecordsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFirstDateInSeries">
+      <wsdl:input message="tns:GetFirstDateInSeriesSoapIn" />
+      <wsdl:output message="tns:GetFirstDateInSeriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRecurringRecords">
+      <wsdl:input message="tns:AddRecurringRecordsSoapIn" />
+      <wsdl:output message="tns:AddRecurringRecordsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecord">
+      <wsdl:input message="tns:UpdateRecordSoapIn" />
+      <wsdl:output message="tns:UpdateRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGridData">
+      <wsdl:input message="tns:GetGridDataSoapIn" />
+      <wsdl:output message="tns:GetGridDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGridDataAdvanced">
+      <wsdl:input message="tns:GetGridDataAdvancedSoapIn" />
+      <wsdl:output message="tns:GetGridDataAdvancedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGridDataFull">
+      <wsdl:input message="tns:GetGridDataFullSoapIn" />
+      <wsdl:output message="tns:GetGridDataFullSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCommunicationsData">
+      <wsdl:input message="tns:GetCommunicationsDataSoapIn" />
+      <wsdl:output message="tns:GetCommunicationsDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormData">
+      <wsdl:input message="tns:GetFormDataSoapIn" />
+      <wsdl:output message="tns:GetFormDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteStoredProcedure">
+      <wsdl:input message="tns:ExecuteStoredProcedureSoapIn" />
+      <wsdl:output message="tns:ExecuteStoredProcedureSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="apiSoap" type="tns:apiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthenticateUser">
+      <soap:operation soapAction="http://thinkministry.com/AuthenticateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateGUIDS">
+      <soap:operation soapAction="http://thinkministry.com/AuthenticateGUIDS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateContactGUID">
+      <soap:operation soapAction="http://thinkministry.com/AuthenticateContactGUID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDomainGUID">
+      <soap:operation soapAction="http://thinkministry.com/GetDomainGUID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap:operation soapAction="http://thinkministry.com/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindOrCreateUserAccount">
+      <soap:operation soapAction="http://thinkministry.com/FindOrCreateUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccount">
+      <soap:operation soapAction="http://thinkministry.com/UpdateUserAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <soap:operation soapAction="http://thinkministry.com/UpdateUserPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <soap:operation soapAction="http://thinkministry.com/ResetPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFile">
+      <soap:operation soapAction="http://thinkministry.com/AttachFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDefaultImage">
+      <soap:operation soapAction="http://thinkministry.com/UpdateDefaultImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecord">
+      <soap:operation soapAction="http://thinkministry.com/AddRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecurringRecords">
+      <soap:operation soapAction="http://thinkministry.com/GetRecurringRecords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFirstDateInSeries">
+      <soap:operation soapAction="http://thinkministry.com/GetFirstDateInSeries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecurringRecords">
+      <soap:operation soapAction="http://thinkministry.com/AddRecurringRecords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecord">
+      <soap:operation soapAction="http://thinkministry.com/UpdateRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGridData">
+      <soap:operation soapAction="http://thinkministry.com/GetGridData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGridDataAdvanced">
+      <soap:operation soapAction="http://thinkministry.com/GetGridDataAdvanced" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGridDataFull">
+      <soap:operation soapAction="http://thinkministry.com/GetGridDataFull" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommunicationsData">
+      <soap:operation soapAction="http://thinkministry.com/GetCommunicationsData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormData">
+      <soap:operation soapAction="http://thinkministry.com/GetFormData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteStoredProcedure">
+      <soap:operation soapAction="http://thinkministry.com/ExecuteStoredProcedure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="apiSoap12" type="tns:apiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthenticateUser">
+      <soap12:operation soapAction="http://thinkministry.com/AuthenticateUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateGUIDS">
+      <soap12:operation soapAction="http://thinkministry.com/AuthenticateGUIDS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateContactGUID">
+      <soap12:operation soapAction="http://thinkministry.com/AuthenticateContactGUID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDomainGUID">
+      <soap12:operation soapAction="http://thinkministry.com/GetDomainGUID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap12:operation soapAction="http://thinkministry.com/GetUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindOrCreateUserAccount">
+      <soap12:operation soapAction="http://thinkministry.com/FindOrCreateUserAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserAccount">
+      <soap12:operation soapAction="http://thinkministry.com/UpdateUserAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <soap12:operation soapAction="http://thinkministry.com/UpdateUserPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <soap12:operation soapAction="http://thinkministry.com/ResetPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachFile">
+      <soap12:operation soapAction="http://thinkministry.com/AttachFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDefaultImage">
+      <soap12:operation soapAction="http://thinkministry.com/UpdateDefaultImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecord">
+      <soap12:operation soapAction="http://thinkministry.com/AddRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecurringRecords">
+      <soap12:operation soapAction="http://thinkministry.com/GetRecurringRecords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFirstDateInSeries">
+      <soap12:operation soapAction="http://thinkministry.com/GetFirstDateInSeries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecurringRecords">
+      <soap12:operation soapAction="http://thinkministry.com/AddRecurringRecords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecord">
+      <soap12:operation soapAction="http://thinkministry.com/UpdateRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGridData">
+      <soap12:operation soapAction="http://thinkministry.com/GetGridData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGridDataAdvanced">
+      <soap12:operation soapAction="http://thinkministry.com/GetGridDataAdvanced" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGridDataFull">
+      <soap12:operation soapAction="http://thinkministry.com/GetGridDataFull" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommunicationsData">
+      <soap12:operation soapAction="http://thinkministry.com/GetCommunicationsData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormData">
+      <soap12:operation soapAction="http://thinkministry.com/GetFormData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteStoredProcedure">
+      <soap12:operation soapAction="http://thinkministry.com/ExecuteStoredProcedure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="api">
+    <wsdl:port name="apiSoap" binding="tns:apiSoap">
+      <soap:address location="https://churchdemo.ministryplatform.net/ministryplatformqa/public/api.asmx" />
+    </wsdl:port>
+    <wsdl:port name="apiSoap12" binding="tns:apiSoap12">
+      <soap12:address location="https://churchdemo.ministryplatform.net/ministryplatformqa/public/api.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
